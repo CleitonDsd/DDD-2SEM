@@ -1,5 +1,7 @@
 package br.com.fiap.tds.exercicio03;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class View {
@@ -11,47 +13,43 @@ public class View {
 		System.out.println("Digite a qtd de alunos");
 		int qtd = leitor.nextInt();
 
-		// Criar um vetor de alunos com a qtd informada
-		Aluno[] alunos = new Aluno[qtd];
+		// Criar uma lista de alunos
+		List<Aluno> alunos = new ArrayList<Aluno>();
 
 		// Loop -> Ler o nome e as notas do aluno
-		for (int i = 0; i < alunos.length; i++) {
+		for (int i = 0; i < qtd; i++) {
 			System.out.println("Digite o nome do aluno");
 			String nome = leitor.next();
 
-			System.out.println("Digite a nota 1 do aluno");
-			int nota1 = leitor.nextInt();
+			// Criar uma lista com as notas do aluno
+			List<Float> notas = new ArrayList<Float>();
 
-			System.out.println("Digite a nota 2 do aluno");
-			int nota2 = leitor.nextInt();
+			for (int j = 0; j < 3; j++) {
 
-			System.out.println("Digite a nota 3 do aluno");
-			int nota3 = leitor.nextInt();
+				System.out.println("Digite a nota " + (j + 1) + " do aluno");
+				notas.add(leitor.nextFloat());
 
-			// Criar um vetor com as notas do aluno
-			int[] notas = { nota1, nota2, nota3 };
+			}
 
 			// Criar um aluno e adicionar no vetor
-			alunos[i] = new Aluno(nome, notas);
+			alunos.add(new Aluno());
 
 		}
 
-		// Variável que armazena a maior nota do primeiro aluno do vetor
-		int maiorNota = alunos[0].recuperarMaiorNota();
+		// Variável que armazena a maior nota do primeiro aluno da lista
+		float maiorNota = alunos.get(0).recuperarMaiorNota();
 
 		// Loop -> identificar o aluno com a maior nota
-		for (int i = 1; i < alunos.length; i++) {
-			if (maiorNota < alunos[i].recuperarMaiorNota()) {
-				maiorNota = alunos[i].recuperarMaiorNota();
+		for (int i = 1; i < alunos.size(); i++) {
+			if (maiorNota < alunos.get(i).recuperarMaiorNota()) {
+				maiorNota = alunos.get(i).recuperarMaiorNota();
 			}
 		}
 
-		String[] nomes = new String[qtd];
-		int i = 0;
+		List<String> nomes = new ArrayList<String>();
 		for (Aluno a : alunos) {
 			if (a.recuperarMaiorNota() == maiorNota) {
-				nomes[i] = a.getNome();
-				i++;
+				nomes.add(a.getNome());
 			}
 		}
 
